@@ -6,7 +6,8 @@ print("Initializing...please be patient...\n")
 
 Backend.InitResource()
 
-#dummo intro to get messy stuff out of the way
+#dummy intro to get messy stuff out of the way
+#todo: fix error messages
 ans = Backend.get_response("initializing")
 
 #Intro text

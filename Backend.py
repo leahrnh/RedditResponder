@@ -50,27 +50,15 @@
 ##                                                                       ##
 ###########################################################################
 
-
-import os
-import exceptions
-from copy import copy, deepcopy
-import re
-from threading import Thread, Timer
-import logging
-
-import os.path as path
-
-#import Control #@yipeiw
-#LNH: uses the Loader from the frequency version to get idf_dict
+#LNH: uses the Loader to create idf_dict, which is used for comparing candidates
 import Loader
-#import NLG
 import RedditQuery
 
 
 #@yipeiw
 database = {}
 resource = {}
-listfile = 'reddit_corpus.list'
+listfile = 'reddit_corpus.list' #file listing all corpus files to be used as a database
 
 def InitResource():
     global database, resource
@@ -82,8 +70,6 @@ def InitResource():
 #LNH: instead of using Control/Understand/Retrieval to find a response from the database, call RedditQuery, which queries Reddit directly
 def get_response(user_input):
     global database, resource
-    #Replace Control with RedditQuery
-    #relevance, answer = Control.FindCandidate(database, resource, user_input)
     relevance, answer = RedditQuery.FindCandidate(user_input, resource)
     #print("answer is: " + str(answer))
     output = " ".join(answer)

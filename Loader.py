@@ -6,42 +6,12 @@ import json
 import os.path as path
 import math
 
-#LNH: this section is no longer being used meaningful and could probably be altered/removed
 def LoadLanguageResource(database):
         print("Loading language resources...")
-        WeightRules=defaultdict(int)
-        nounlist = ['NN', 'NNS', 'NNP', 'NNPS']
-        for noun in nounlist:
-                WeightRules[noun] = 3
-        WeightRules['VBP'] = 1
         idf_dict = LoadFreqs(database)
-        stop_dict=defaultdict(bool)
-        for word in nltk.corpus.stopwords.words('english'):
-                stop_dict[word] = True
         resource = {}
-        resource['rules'] = WeightRules
-        resource['stop_words'] = stop_dict
         resource['idf_dict'] = idf_dict
         return resource
-
-def LoadData(datalist):
-	database = {}
-	for datafile in datalist:
-		f = open(datafile)
-		line = f.readline()
-		f.close()
-		raw_data = json.loads(str(line.strip()))
-		database = PushData(raw_data, database)
-	return database
-
-def PushData(data, database):
-	last = len(database.keys())
-	for pair in data:
-		database[last] = pair['question'].split()
-		last += 1
-		database[last] = pair['answer'].split()		
-		last += 1
-	return database
 
 def LoadDataPair(datalist):
         print("Loading data...")
@@ -57,6 +27,7 @@ def LoadDataPair(datalist):
                 database = PushDataPair(raw_data, database)
         return database
 
+
 def PushDataPair(data, database):
         last = len(database['Q'].keys())
         for pair in data:
@@ -64,16 +35,6 @@ def PushDataPair(data, database):
                 database['A'][last] = pair['answer'].split()
                 last += 1
         return database
-
-def LoadTemplate(filelist):
-	Library = {}
-	for filepath in filelist:
-		name = path.splitext(path.basename(filepath))[0]	
-		Library[name] = [line.strip() for line in open(filepath)]
-	return Library
-
-def LoadTopic(topicfile):
-	return [line.strip() for line in open(topicfile)]
 
 #LNH: Create a dictionary where key=word in database and value=idf of the word. This is part of resource
 #This takes some on startup, but otherwise doesn't effect how fast the program runs. Speed could be improved by doing this processing once and then reading from a file.
