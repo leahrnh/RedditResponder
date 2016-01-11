@@ -11,3 +11,12 @@ directly to find an appropriate response to user input.
 To run the program, in the command line, run:
 
     python StartConversation.py
+
+
+Dependencies
+------------
+Requires praw and pyasn1. Assuming python is installed, these can be
+installed using
+
+	pip install praw
+	pip install pyasn1
