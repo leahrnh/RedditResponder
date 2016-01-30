@@ -50,27 +50,31 @@
 ##                                                                       ##
 ###########################################################################
 
-#LNH: uses the Loader to create idf_dict, which is used for comparing candidates
+
+# LNH: uses the Loader to create idf_dict, which is used for comparing candidates
 import Loader
 import RedditQuery
 
 
-#@yipeiw
+# @yipeiw
 database = {}
 resource = {}
-listfile = 'reddit_corpus.list' #file listing all corpus files to be used as a database
+listfile = 'reddit_corpus.list' # file listing all corpus files to be used as a database
 
-def InitResource():
+
+def init_resource():
     global database, resource
     datalist = [line.strip() for line in open(listfile)]
-    database = Loader.LoadDataPair(datalist)
-    resource = Loader.LoadLanguageResource(database)
+    database = Loader.load_data_pair(datalist)
+    resource = Loader.load_language_resource(database)
 
-#@yipeiw
-#LNH: instead of using Control/Understand/Retrieval to find a response from the database, call RedditQuery, which queries Reddit directly
+
+# @yipeiw
+# LNH: instead of using Control/Understand/Retrieval to find a response from the database,
+# call RedditQuery, which queries Reddit directly
 def get_response(user_input):
     global database, resource
-    relevance, answer = RedditQuery.FindCandidate(user_input, resource)
-    #print("answer is: " + str(answer))
+    relevance, answer = RedditQuery.find_candidate(user_input, resource)
+    # print("answer is: " + str(answer))
     output = " ".join(answer)
     return output

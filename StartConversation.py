@@ -4,7 +4,7 @@ import Backend
 
 print("Initializing...please be patient...\n")
 
-Backend.InitResource()
+Backend.init_resource()
 
 #dummy intro to get messy stuff out of the way
 #todo: fix error messages
