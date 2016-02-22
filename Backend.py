@@ -57,16 +57,14 @@ import RedditQuery
 
 
 # @yipeiw
-database = {}
 resource = {}
-listfile = 'reddit_corpus.list' # file listing all corpus files to be used as a database
+# listfile = 'reddit_corpus.list' # file listing all corpus files to be used as a database
+idf_file = 'idf_dict.csv' # file listing words and idf values
 
 
 def init_resource():
-    global database, resource
-    datalist = [line.strip() for line in open(listfile)]
-    database = Loader.load_data_pair(datalist)
-    resource = Loader.load_language_resource(database)
+    global resource
+    resource = Loader.load_language_resource(idf_file)
 
 
 # @yipeiw
